@@ -55,33 +55,33 @@ const Header: React.FC = () => {
               Home
             </button>
             
-            <div className="relative group">
+            <div 
+              className="relative group"
+              onMouseEnter={() => setIsProgramDropdownOpen(true)}
+              onMouseLeave={() => setIsProgramDropdownOpen(false)}
+            >
               <button
-                onMouseEnter={() => setIsProgramDropdownOpen(true)}
-                onMouseLeave={() => setIsProgramDropdownOpen(false)}
                 className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
               >
                 <span>Program</span>
-                <ChevronDown className="h-4 w-4" />
+                <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isProgramDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
               
-              {isProgramDropdownOpen && (
-                <div 
-                  className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-2"
-                  onMouseEnter={() => setIsProgramDropdownOpen(true)}
-                  onMouseLeave={() => setIsProgramDropdownOpen(false)}
-                >
+              <div className={`absolute top-full left-0 pt-2 transition-all duration-200 ${
+                isProgramDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                <div className="w-64 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden">
                   {programItems.map((item) => (
                     <button
                       key={item.href}
                       onClick={() => scrollToSection(item.href)}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors duration-200"
+                      className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors duration-200"
                     >
                       {item.label}
                     </button>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
 
             <button
